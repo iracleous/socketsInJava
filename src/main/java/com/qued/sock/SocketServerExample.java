@@ -7,6 +7,7 @@ import java.io.ObjectOutputStream;
 import java.lang.ClassNotFoundException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 
 public class SocketServerExample {
@@ -19,6 +20,9 @@ public class SocketServerExample {
     public static void main(String args[]) throws IOException, ClassNotFoundException{
         //create the socket server object
         server = new ServerSocket(port);
+
+        Scanner scanner = new Scanner(System.in);
+
         //keep listens indefinitely until receives 'exit' call or program terminates
         while(true){
             System.out.println("Waiting for the client request");
@@ -32,7 +36,11 @@ public class SocketServerExample {
             //create ObjectOutputStream object
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             //write object to Socket
-            oos.writeObject("Hi Client "+message);
+
+            System.out.println("Give your answer");
+            String answer = scanner.nextLine();
+
+            oos.writeObject(answer);
             //close resources
             ois.close();
             oos.close();
