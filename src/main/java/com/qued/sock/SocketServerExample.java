@@ -21,13 +21,18 @@ public class SocketServerExample {
         //create the socket server object
         server = new ServerSocket(port);
 
-        Scanner scanner = new Scanner(System.in);
+    //    Scanner scanner = new Scanner(System.in);
+
+        ServerProtocol protocol = new ServerProtocol();
 
         //keep listens indefinitely until receives 'exit' call or program terminates
         while(true){
             System.out.println("Waiting for the client request");
             //creating socket and waiting for client connection
             Socket socket = server.accept();
+            //multithreading server
+
+
             //read from socket to ObjectInputStream object
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             //convert ObjectInputStream object to String
@@ -36,17 +41,19 @@ public class SocketServerExample {
             //create ObjectOutputStream object
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             //write object to Socket
-
-            System.out.println("Give your answer");
-            String answer = scanner.nextLine();
+            if(message.equalsIgnoreCase("exit")) break;
+       //     System.out.println("Give your answer");
+            String answer = protocol.answer(message);
 
             oos.writeObject(answer);
             //close resources
             ois.close();
             oos.close();
             socket.close();
+
+
             //terminate the server if client sends exit request
-            if(message.equalsIgnoreCase("exit")) break;
+
         }
         System.out.println("Shutting down Socket server!!");
         //close the ServerSocket object
