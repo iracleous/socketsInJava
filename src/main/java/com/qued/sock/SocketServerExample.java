@@ -17,7 +17,7 @@ public class SocketServerExample {
     //socket server port on which it will listen
     private static int port = 9000;
 
-    public static void main(String args[]) throws IOException, ClassNotFoundException{
+    public static void main(String []args) throws IOException, ClassNotFoundException{
         //create the socket server object
         server = new ServerSocket(port);
 
@@ -41,11 +41,17 @@ public class SocketServerExample {
             //create ObjectOutputStream object
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             //write object to Socket
-            if(message.equalsIgnoreCase("exit")) break;
+            if(message.equalsIgnoreCase("exit")) {
+                ois.close();
+                oos.close();
+                socket.close();
+                break;
+            }
        //     System.out.println("Give your answer");
-            String answer = protocol.answer(message);
 
+            String answer = protocol.answer(message);
             oos.writeObject(answer);
+
             //close resources
             ois.close();
             oos.close();
