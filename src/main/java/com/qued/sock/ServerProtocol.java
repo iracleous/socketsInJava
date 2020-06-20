@@ -9,10 +9,14 @@ public class ServerProtocol {
     public String answer(String question)
     {
 
-        if (question.equals("left"))  x--;
-        if (question.equals("right"))  x++;
-        if (question.equals("up"))  y--;
-        if (question.equals("down"))  y++;
+        switch (question){
+            case "left" :  x--; break;
+            case "right" :  x++; break;
+            case "up" :  y--; break;
+            case "down" : y++; break;
+            default:
+        }
+
         return "Yes Sir. My new position is x= "+ x+ " y= "+y;
     }
 
