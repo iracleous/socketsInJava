@@ -23,24 +23,14 @@ public class SocketClientExample {
         //get the localhost IP address, if server is running on some other IP, you need to use that
         host = InetAddress.getLocalHost();
 
-
         JFrame frame = new JFrame("Client");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300, 300);
-
-
         ClientPanel gamePanel=new ClientPanel();
-
         gamePanel.addKeyListener(gamePanel);
         gamePanel.setFocusable(true);
-
         frame.add(gamePanel);
-
         frame.setVisible(true);
-
-
     }
-
-
 
 }

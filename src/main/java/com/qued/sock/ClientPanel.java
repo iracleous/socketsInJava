@@ -95,9 +95,6 @@ public class ClientPanel extends JPanel implements KeyListener {
         ois.close();
         oos.close();
         socket.close();
-//        invalidate();
-//        validate();
-//        revalidate();
 
         repaint();
         Thread.sleep(100);

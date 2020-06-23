@@ -1,5 +1,6 @@
 package com.qued.sock;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,14 +20,22 @@ public class SocketServerExample {
     public static void main(String []args) throws IOException, ClassNotFoundException{
         //create the socket server object
         server = new ServerSocket(port);
+       //    Scanner scanner = new Scanner(System.in);
+    //    ServerProtocol protocol = new ServerProtocol();
 
-    //    Scanner scanner = new Scanner(System.in);
+        JFrame frame = new JFrame("Server");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 300);
 
-        ServerProtocol protocol = new ServerProtocol();
+        ServerPanel gamePanel=new ServerPanel();
+
+        frame.add(gamePanel);
+        frame.setVisible(true);
+
 
         //keep listens indefinitely until receives 'exit' call or program terminates
         while(true){
-            System.out.println("Waiting for the client request");
+            gamePanel.setMessage1("Waiting for the client request");
             //creating socket and waiting for client connection
             Socket socket = server.accept();
             //multithreading server
@@ -36,7 +45,7 @@ public class SocketServerExample {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             //convert ObjectInputStream object to String
             String message = (String) ois.readObject();
-            System.out.println("Message Received: " + message);
+            gamePanel.setMessage2("Message Received: " + message);
             //create ObjectOutputStream object
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             //write object to Socket
@@ -48,7 +57,7 @@ public class SocketServerExample {
             }
        //     System.out.println("Give your answer");
 
-            String answer = protocol.answer(message);
+            String answer = gamePanel.answer(message);
             oos.writeObject(answer);
 
             //close resources
